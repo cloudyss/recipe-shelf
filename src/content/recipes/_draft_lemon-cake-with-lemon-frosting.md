@@ -94,7 +94,7 @@ instructions:
   - text: "Beat the cooled roux into the butter spoon by spoon, then add 3 tsp lemon zest and 4 tbsp lemon juice and whip until fluffy enough to hold peaks."
     timerMinutes: 2
   - text: "Stack the cooled cakes with a thin layer of lemon frosting between each layer, then cover the top and sides with the remaining frosting."
-notes: "The frosting is included here as part of the cake. If you want to make icing its own page later, create a separate icing recipe and add that recipe slug to goesWith."
+notes: "CAKE IS TOO SWEET. I tried wtih vanilla icing (my recipe) it was too much."
 source:
   title: "Lemon Cake with Fluffy, Less-Sweet Lemon Frosting"
   author: "Nagi Maehashi"
