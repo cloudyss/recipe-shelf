@@ -8,6 +8,7 @@ interface Props {
 
 const { title, description = 'A personal, searchable recipe collection.' } = Astro.props;
 const base = import.meta.env.BASE_URL;
+const addRecipeUrl = 'https://github.com/cloudyss/recipe-shelf/actions/workflows/import-recipe.yml';
 ---
 
 <!doctype html>
@@ -28,7 +29,7 @@ const base = import.meta.env.BASE_URL;
         <a class="brand" href={base}>Recipe Shelf</a>
         <a href={base}>Recipes</a>
         <a href={`${base}recipes/template/`}>Template</a>
-        <a href="https://github.com/" rel="noreferrer">GitHub</a>
+        <a href={addRecipeUrl} rel="noreferrer">Add Recipe</a>
       </nav>
     </header>
     <main id="content">
