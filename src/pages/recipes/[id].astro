@@ -31,12 +31,15 @@ const formatDate = (date: Date) =>
 
 const instructionText = (step: string | { text: string; timerMinutes?: number }) =>
   typeof step === 'string' ? step : step.text;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const homeUrl = `${basePath}/`;
+const recipeUrl = (id: string) => `${basePath}/recipes/${id.replace(/\.md$/, '')}/`;
 ---
 
 <BaseLayout title={`${data.title} | Recipe Shelf`} description={data.description}>
   <article class="recipe-page" data-original-servings={data.originalServings}>
     <header class="recipe-hero">
-      <a class="back-link" href={import.meta.env.BASE_URL}>Back to recipes</a>
+      <a class="back-link" href={homeUrl}>Back to recipes</a>
       <p class="eyebrow">{data.categories.join(' / ') || 'Recipe'}</p>
       <h1>{data.title}</h1>
       <p>{data.description}</p>
@@ -137,7 +140,7 @@ const instructionText = (step: string | { text: string; timerMinutes?: number })
         <ul class="related-list">
           {relatedRecipes.map((related) => (
             <li>
-              <a href={`${import.meta.env.BASE_URL}recipes/${related.id.replace(/\.md$/, '')}/`}>
+              <a href={recipeUrl(related.id)}>
                 {related.data.title}
               </a>
             </li>

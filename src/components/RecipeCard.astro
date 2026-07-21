@@ -7,6 +7,8 @@ interface Props {
 
 const { recipe } = Astro.props;
 const { data } = recipe;
+const basePath = import.meta.env.BASE_URL.replace(/\/$/, '');
+const recipeUrl = `${basePath}/recipes/${recipe.id.replace(/\.md$/, '')}/`;
 const ingredients = data.ingredients.flatMap((group) =>
   group.ingredients.map((ingredient) => ingredient.name)
 );
@@ -28,7 +30,7 @@ const searchText = [
   data-categories={data.categories.join('|').toLowerCase()}
   data-tags={data.tags.join('|').toLowerCase()}
 >
-  <a href={`${import.meta.env.BASE_URL}recipes/${recipe.id.replace(/\.md$/, '')}/`}>
+  <a href={recipeUrl}>
     <span class="card-kicker">{data.categories[0] ?? 'Recipe'}</span>
     <h2>{data.title}</h2>
     <p>{data.description}</p>
