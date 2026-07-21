@@ -146,7 +146,7 @@ const recipeSchema = {
     source: {
       type: 'object',
       additionalProperties: false,
-      required: ['title', 'author', 'website', 'url', 'accessed'],
+      required: ['title', 'author', 'website', 'accessed'],
       properties: {
         title: { type: 'string' },
         author: { type: 'string' },
@@ -166,6 +166,16 @@ function yamlString(value) {
 function yamlArray(values, indent = '') {
   if (!values?.length) return `${indent}[]`;
   return values.map((value) => `${indent}- ${yamlString(value)}`).join('\n');
+}
+
+function validUrl(value) {
+  const text = cleanText(value);
+  if (!text) return '';
+  try {
+    return new URL(text).toString();
+  } catch {
+    return '';
+  }
 }
 
 function recipeToMarkdown(recipe) {
@@ -218,7 +228,7 @@ source:
   title: ${yamlString(recipe.source.title || recipe.title)}
   author: ${yamlString(recipe.source.author)}
   website: ${yamlString(recipe.source.website)}
-${recipe.source.url || sourceUrl ? `  url: ${yamlString(recipe.source.url || sourceUrl)}\n` : ''}  accessed: ${yamlString(recipe.source.accessed || today)}
+${recipe.source.url ? `  url: ${yamlString(recipe.source.url)}\n` : ''}  accessed: ${yamlString(recipe.source.accessed || today)}
 image: ${yamlString(recipe.image)}
 created: ${today}
 updated: ${today}
@@ -298,7 +308,7 @@ function normalizeRecipe(recipe) {
     title: cleanText(normalized.source.title) || normalized.title,
     author: cleanText(normalized.source.author),
     website: cleanText(normalized.source.website),
-    url: cleanText(normalized.source.url || sourceUrl),
+    url: validUrl(normalized.source.url) || validUrl(sourceUrl),
     accessed: cleanText(normalized.source.accessed) || today
   };
 
