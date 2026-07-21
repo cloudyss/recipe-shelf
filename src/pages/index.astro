@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import RecipeCard from '../components/RecipeCard.astro';
+
+const recipes = (await getCollection('recipes'))
+  .filter((recipe) => !recipe.id.startsWith('_'))
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const categories = [...new Set(recipes.flatMap((recipe) => recipe.data.categories))].sort();
+const tags = [...new Set(recipes.flatMap((recipe) => recipe.data.tags))].sort();
+---
+
+<BaseLayout title="Recipe Shelf" description="A searchable personal recipe collection.">
+  <section class="page-intro">
+    <p class="eyebrow">Personal recipe collection</p>
+    <h1>Recipes that are easy to find, scale and edit.</h1>
+    <p>
+      Search by recipe, ingredient, category or tag. Each recipe is stored as a
+      version-controlled Markdown file in GitHub.
+    </p>
+  </section>
+
+  <section class="controls-panel" aria-label="Recipe search and filters">
+    <label class="field">
+      <span>Search</span>
+      <input id="recipe-search" type="search" placeholder="Search recipes or ingredients" autocomplete="off" />
+    </label>
+
+    <label class="field">
+      <span>Category</span>
+      <select id="category-filter">
+        <option value="">All categories</option>
+        {categories.map((category) => <option value={category.toLowerCase()}>{category}</option>)}
+      </select>
+    </label>
+
+    <fieldset class="tag-filter">
+      <legend>Tags</legend>
+      <div>
+        {tags.map((tag) => (
+          <label>
+            <input type="checkbox" value={tag.toLowerCase()} data-tag-filter />
+            <span>{tag}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  </section>
+
+  <p class="result-count" data-result-count>{recipes.length} recipes</p>
+  <section class="recipe-grid" aria-label="Recipes">
+    {recipes.map((recipe) => <RecipeCard recipe={recipe} />)}
+  </section>
+  <section class="empty-state" data-empty-state hidden>
+    <h2>No recipes found</h2>
+    <p>Try a different search term, category or tag.</p>
+  </section>
+
+  <script>
+    const searchInput = document.querySelector<HTMLInputElement>('#recipe-search');
+    const categoryFilter = document.querySelector<HTMLSelectElement>('#category-filter');
+    const tagFilters = [...document.querySelectorAll<HTMLInputElement>('[data-tag-filter]')];
+    const cards = [...document.querySelectorAll<HTMLElement>('[data-recipe-card]')];
+    const emptyState = document.querySelector<HTMLElement>('[data-empty-state]');
+    const resultCount = document.querySelector<HTMLElement>('[data-result-count]');
+
+    function updateRecipeResults() {
+      const query = searchInput?.value.trim().toLowerCase() ?? '';
+      const category = categoryFilter?.value ?? '';
+      const selectedTags = tagFilters.filter((filter) => filter.checked).map((filter) => filter.value);
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const search = card.dataset.search ?? '';
+        const categories = (card.dataset.categories ?? '').split('|');
+        const tags = (card.dataset.tags ?? '').split('|');
+        const matchesSearch = !query || search.includes(query);
+        const matchesCategory = !category || categories.includes(category);
+        const matchesTags = selectedTags.every((tag) => tags.includes(tag));
+        const isVisible = matchesSearch && matchesCategory && matchesTags;
+        card.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+      });
+
+      if (emptyState) emptyState.hidden = visibleCount > 0;
+      if (resultCount) resultCount.textContent = `${visibleCount} ${visibleCount === 1 ? 'recipe' : 'recipes'}`;
+    }
+
+    searchInput?.addEventListener('input', updateRecipeResults);
+    categoryFilter?.addEventListener('change', updateRecipeResults);
+    tagFilters.forEach((filter) => filter.addEventListener('change', updateRecipeResults));
+  </script>
+</BaseLayout>

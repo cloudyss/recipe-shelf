@@ -1,0 +1,247 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const recipes = (await getCollection('recipes')).filter((recipe) => !recipe.id.startsWith('_'));
+  return recipes.map((recipe) => ({
+    params: { id: recipe.id.replace(/\.md$/, '') },
+    props: {
+      recipe,
+      relatedRecipes: recipes.filter((candidate) =>
+        recipe.data.goesWith.includes(candidate.id.replace(/\.md$/, ''))
+      )
+    }
+  }));
+}
+
+const { recipe, relatedRecipes } = Astro.props as {
+  recipe: CollectionEntry<'recipes'>;
+  relatedRecipes: CollectionEntry<'recipes'>[];
+};
+const { data } = recipe;
+const sourcePath = `src/content/recipes/${recipe.id.endsWith('.md') ? recipe.id : `${recipe.id}.md`}`;
+const repositoryUrl = import.meta.env.PUBLIC_GITHUB_REPOSITORY_URL;
+const editUrl = repositoryUrl
+  ? `${repositoryUrl.replace(/\/$/, '')}/edit/main/${sourcePath}`
+  : `https://github.com/search?q=${encodeURIComponent(sourcePath)}`;
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-AU', { year: 'numeric', month: 'short', day: 'numeric' }).format(date);
+
+const instructionText = (step: string | { text: string; timerMinutes?: number }) =>
+  typeof step === 'string' ? step : step.text;
+---
+
+<BaseLayout title={`${data.title} | Recipe Shelf`} description={data.description}>
+  <article class="recipe-page" data-original-servings={data.originalServings}>
+    <header class="recipe-hero">
+      <a class="back-link" href={import.meta.env.BASE_URL}>Back to recipes</a>
+      <p class="eyebrow">{data.categories.join(' / ') || 'Recipe'}</p>
+      <h1>{data.title}</h1>
+      <p>{data.description}</p>
+      <dl class="meta-list">
+        <dt>Servings</dt><dd>{data.originalServings}</dd>
+      </dl>
+      <div class="action-row">
+        <a class="button" href={editUrl} rel="noreferrer">Edit in GitHub</a>
+        <button class="button secondary" type="button" data-wake-lock>Keep screen awake</button>
+      </div>
+    </header>
+
+    <section class="serving-panel" aria-label="Serving size controls">
+      <label class="field compact-field">
+        <span>Servings</span>
+        <input data-servings type="number" min="1" step="1" value={data.originalServings} inputmode="numeric" />
+      </label>
+      <div class="scale-buttons" aria-label="Quick ingredient scaling">
+        {[0.5, 1, 1.5, 2].map((factor) => (
+          <button type="button" data-scale={factor}>{factor}x</button>
+        ))}
+      </div>
+    </section>
+
+    <div class="recipe-columns">
+      <section class="ingredients-panel">
+        <h2>Ingredients</h2>
+        {data.ingredients.map((group) => (
+          <section class="ingredient-group">
+            <h3>{group.title}</h3>
+            <ul class="ingredient-list">
+              {group.ingredients.map((ingredient) => (
+                <li class:list={[ingredient.optional && 'optional']}>
+                  <span
+                    class="ingredient-quantity"
+                    data-quantity={ingredient.quantity}
+                    data-unit={ingredient.unit ?? ''}
+                  >
+                    {ingredient.quantity === null ? '' : ingredient.quantity}
+                    {ingredient.unit ? ` ${ingredient.unit}` : ''}
+                  </span>
+                  <span>
+                    {ingredient.name}
+                    {ingredient.notes && <span class="ingredient-notes">, {ingredient.notes}</span>}
+                    {ingredient.optional && <span class="ingredient-notes"> (optional)</span>}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </section>
+
+      <section class="method-panel">
+        <h2>Method</h2>
+        <ol class="instruction-list">
+          {data.instructions.map((step) => (
+            <li>
+              <span>{instructionText(step)}</span>
+              {typeof step !== 'string' && step.timerMinutes && (
+                <button class="timer-button" type="button" data-timer-minutes={step.timerMinutes}>
+                  Start {step.timerMinutes} min timer
+                </button>
+              )}
+            </li>
+          ))}
+        </ol>
+      </section>
+    </div>
+
+    <section class="notes-panel">
+      <h2>Notes</h2>
+      {data.notes && <p>{data.notes}</p>}
+      {data.cookingNotes && (
+        <p>{data.cookingNotes}</p>
+      )}
+      {data.adaptationNotes && (
+        <p>{data.adaptationNotes}</p>
+      )}
+      <h3>Source</h3>
+      <p>
+        {data.source.url ? (
+          <a href={data.source.url} rel="noreferrer">{data.source.title}</a>
+        ) : (
+          data.source.title
+        )}
+        {data.source.author && <> by {data.source.author}</>}
+        {data.source.website && <> on {data.source.website}</>}
+        {data.source.accessed && <>. Accessed {formatDate(data.source.accessed)}</>}
+      </p>
+      <h3>File History</h3>
+      <p>Created {formatDate(data.created)}. Updated {formatDate(data.updated)}.</p>
+    </section>
+
+    {relatedRecipes.length > 0 && (
+      <section class="goes-with-panel">
+        <h2>Goes With</h2>
+        <ul class="related-list">
+          {relatedRecipes.map((related) => (
+            <li>
+              <a href={`${import.meta.env.BASE_URL}recipes/${related.id.replace(/\.md$/, '')}/`}>
+                {related.data.title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </article>
+
+  <script>
+    const page = document.querySelector<HTMLElement>('[data-original-servings]');
+    const servingsInput = document.querySelector<HTMLInputElement>('[data-servings]');
+    const quantityNodes = [...document.querySelectorAll<HTMLElement>('[data-quantity]')];
+    const scaleButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-scale]')];
+    const originalServings = Number(page?.dataset.originalServings ?? 1);
+
+    function formatQuantity(value: number) {
+      return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
+    }
+
+    function updateQuantities() {
+      const servings = Number(servingsInput?.value || originalServings);
+      const factor = servings / originalServings;
+
+      quantityNodes.forEach((node) => {
+        const rawQuantity = node.dataset.quantity;
+        const unit = node.dataset.unit;
+        if (!rawQuantity || rawQuantity === 'null') {
+          node.textContent = '';
+          return;
+        }
+        const scaled = Number(rawQuantity) * factor;
+        node.textContent = `${formatQuantity(scaled)}${unit ? ` ${unit}` : ''}`;
+      });
+    }
+
+    servingsInput?.addEventListener('input', updateQuantities);
+    scaleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const factor = Number(button.dataset.scale ?? 1);
+        if (servingsInput) servingsInput.value = String(Math.max(1, Math.round(originalServings * factor)));
+        updateQuantities();
+      });
+    });
+
+    let wakeLock: any = null;
+    const wakeButton = document.querySelector<HTMLButtonElement>('[data-wake-lock]');
+    if (!('wakeLock' in navigator)) {
+      wakeButton?.setAttribute('hidden', 'true');
+    }
+    wakeButton?.addEventListener('click', async () => {
+      try {
+        if (wakeLock) {
+          await wakeLock.release();
+          wakeLock = null;
+          wakeButton.textContent = 'Keep screen awake';
+          return;
+        }
+        wakeLock = await navigator.wakeLock.request('screen');
+        wakeButton.textContent = 'Screen will stay awake';
+        wakeLock.addEventListener('release', () => {
+          wakeLock = null;
+          wakeButton.textContent = 'Keep screen awake';
+        });
+      } catch {
+        wakeButton.textContent = 'Wake lock unavailable';
+      }
+    });
+
+    const timers = new Map<HTMLButtonElement, number>();
+    const timerButtons = [...document.querySelectorAll<HTMLButtonElement>('[data-timer-minutes]')];
+
+    timerButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const existing = timers.get(button);
+        if (existing) {
+          window.clearInterval(existing);
+          timers.delete(button);
+        }
+
+        const minutes = Number(button.dataset.timerMinutes ?? 0);
+        let remaining = Math.round(minutes * 60);
+        const label = `Start ${minutes} min timer`;
+
+        const render = () => {
+          const mins = Math.floor(remaining / 60);
+          const secs = String(remaining % 60).padStart(2, '0');
+          button.textContent = remaining > 0 ? `${mins}:${secs}` : 'Done';
+        };
+
+        render();
+        const interval = window.setInterval(() => {
+          remaining -= 1;
+          render();
+          if (remaining <= 0) {
+            window.clearInterval(interval);
+            timers.delete(button);
+            window.setTimeout(() => {
+              button.textContent = label;
+            }, 5000);
+          }
+        }, 1000);
+        timers.set(button, interval);
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,64 @@
+name: Import recipe draft
+
+on:
+  workflow_dispatch:
+    inputs:
+      recipe_url:
+        description: "Recipe URL to import"
+        required: false
+        type: string
+      recipe_text:
+        description: "Recipe text to import if you do not have a URL"
+        required: false
+        type: string
+      output_slug:
+        description: "Optional recipe slug, without .md"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate draft recipe
+        run: node scripts/llm-recipe-import.mjs
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          RECIPE_URL: ${{ inputs.recipe_url }}
+          RECIPE_TEXT: ${{ inputs.recipe_text }}
+          RECIPE_SLUG: ${{ inputs.output_slug }}
+
+      - name: Validate site
+        run: npm run build
+        env:
+          PUBLIC_GITHUB_REPOSITORY_URL: https://github.com/${{ github.repository }}
+
+      - name: Commit draft
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content/recipes
+          if git diff --cached --quiet; then
+            echo "No recipe changes to commit."
+          else
+            git commit -m "Import recipe draft"
+            git push
+          fi

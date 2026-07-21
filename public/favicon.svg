@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Recipe Shelf">
+  <rect width="64" height="64" rx="14" fill="#416154"/>
+  <path d="M18 18h22a6 6 0 0 1 6 6v28H24a6 6 0 0 1-6-6V18Z" fill="#fbfaf7"/>
+  <path d="M24 18v28a6 6 0 0 0 6 6" fill="none" stroke="#8b5d3b" stroke-width="4" stroke-linecap="round"/>
+  <path d="M28 28h12M28 36h10" stroke="#416154" stroke-width="4" stroke-linecap="round"/>
+</svg>
