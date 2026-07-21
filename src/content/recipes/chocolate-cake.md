@@ -1,19 +1,17 @@
 ---
 title: "Chocolate Cake"
-description: "A one-bowl chocolate cake with a moist crumb and chocolate buttercream pairing."
+description: "Adapted Recipe Tin Eats chocolate cake with a bit less sugar. Has a very moist crumb."
 originalServings: 10
 categories:
   - Cake
-  - Dessert
 tags:
-  - chocolate
-  - one bowl
-  - frosting
+  - cake
 cuisine: "Western"
 dietary:
   - Vegetarian
 goesWith:
-  - lemon-cake-with-lemon-frosting
+  - vanilla-swiss-meringue-buttercream-icing
+  - chocolate-swiss-meringue-buttercream-icing-recipe
 ingredients:
   - title: "Chocolate cake"
     ingredients:
@@ -30,7 +28,7 @@ ingredients:
         quantity: 1.5
         unit: "tsp"
       - name: "white sugar"
-        quantity: 2
+        quantity: 1.66
         unit: "cups"
       - name: "salt"
         quantity: 1
@@ -58,15 +56,17 @@ ingredients:
         optional: true
 instructions:
   - text: "Heat the oven to 180C, or 160C fan. Grease and line two 22cm cake tins."
-  - text: "Sift 1.75 cups plain flour, 0.75 cup cocoa powder, 1.5 tsp baking powder and 1.5 tsp baking soda into a large bowl."
-  - text: "Whisk in 2 cups white sugar and 1 tsp salt."
-  - text: "Add 2 eggs, 1 cup milk, 0.5 cup vegetable oil and 2 tsp vanilla extract, then whisk until the batter is smooth."
+  - text: "Sift 1 3/4 cups plain flour, 3/4 cup cocoa powder, 1 1/2 tsp baking powder and 1 1/2 tsp baking soda into a large bowl."
+  - text: "Whisk in 1 2/3 cups white sugar and 1 tsp salt."
+  - text: "Add 2 eggs, 1 cup milk, 1/2 cup vegetable oil and 2 tsp vanilla extract, then whisk until the batter is smooth."
   - text: "Whisk in 1 cup boiling water. The batter will be thin."
   - text: "Divide the batter between the tins and bake until a skewer inserted into the centre comes out clean."
     timerMinutes: 35
   - text: "Cool the cakes in the tins for 10 minutes, then turn them out onto racks and cool completely."
-  - text: "Finish with 1.5 batches chocolate buttercream frosting, or leave plain and serve with cream."
-notes: "Chocolate buttercream can become its own recipe page later. When it exists, add its slug to goesWith so it appears as a pairing link."
+  - text: "Finish but cutting the tops off to flatten. Wrap in two layers of cling wrap and one layer of Al foil in preparation to ice. "
+  - text: "The next day, prepare icing and coat with crumb coat while frozen. Set in fridge for 30 mins"
+  - text: "Bring the cake to room temperature to ice with final layers. Don't pipe when the cake is frozen or too cold or icing won't adhere."
+notes: "I can use my one big pan and cook for about 1 hour at 130 degrees. Low and slow. It goes better with the chocolate buttercream icing."
 source:
   title: "Chocolate Cake"
   author: "Nagi Maehashi"
