@@ -40,8 +40,9 @@ jobs:
       - name: Generate draft recipe
         run: node scripts/llm-recipe-import.mjs
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+          LLM_PROVIDER: groq
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: ${{ vars.GROQ_MODEL }}
           RECIPE_URL: ${{ inputs.recipe_url }}
           RECIPE_TEXT: ${{ inputs.recipe_text }}
           RECIPE_SLUG: ${{ inputs.output_slug }}

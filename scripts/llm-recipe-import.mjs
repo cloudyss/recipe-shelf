@@ -16,11 +16,16 @@ const args = new Map(
 const sourceUrl = args.get('url') || process.env.RECIPE_URL || '';
 const textFile = args.get('text-file') || '';
 const outputSlug = args.get('slug') || process.env.RECIPE_SLUG || '';
-const model = process.env.OPENAI_MODEL || 'gpt-5.6-luna';
+const provider = process.env.LLM_PROVIDER || 'groq';
+const model = process.env.LLM_MODEL || process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
 const today = new Date().toISOString().slice(0, 10);
 
-if (!process.env.OPENAI_API_KEY) {
-  throw new Error('OPENAI_API_KEY is required.');
+if (provider !== 'groq') {
+  throw new Error(`Unsupported LLM_PROVIDER: ${provider}`);
+}
+
+if (!process.env.GROQ_API_KEY) {
+  throw new Error('GROQ_API_KEY is required.');
 }
 
 function slugify(value) {
@@ -268,31 +273,32 @@ if (fetchError) {
   process.exit(0);
 }
 
-const response = await fetch('https://api.openai.com/v1/responses', {
+const systemPrompt =
+  'Convert recipes into the Recipe Shelf JSON schema. Preserve cups, tbsp and tsp as measuring units. Convert ounces and pounds to grams. Keep quantities numeric where possible, or null for text-only amounts. Rewrite method steps so ingredient amounts are included directly in the instruction text. Add timerMinutes for timed cooking/mixing/resting steps. Do not invent ingredients. If uncertain, put a short warning in notes. Return only valid JSON matching the schema.';
+
+const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
   method: 'POST',
   headers: {
-    authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+    authorization: `Bearer ${process.env.GROQ_API_KEY}`,
     'content-type': 'application/json'
   },
   body: JSON.stringify({
     model,
-    store: false,
-    input: [
+    temperature: 0.1,
+    messages: [
       {
-        role: 'developer',
-        content:
-          'Convert recipes into the Recipe Shelf JSON schema. Preserve cups, tbsp and tsp as measuring units. Convert ounces and pounds to grams. Keep quantities numeric where possible, or null for text-only amounts. Rewrite method steps so ingredient amounts are included directly in the instruction text. Add timerMinutes for timed cooking/mixing/resting steps. Do not invent ingredients. If uncertain, put a short warning in notes.'
+        role: 'system',
+        content: systemPrompt
       },
       {
         role: 'user',
         content: `Source URL: ${sourceUrl || 'pasted text'}\nAccessed: ${today}\n\nRecipe content:\n${recipeInput}`
       }
     ],
-    text: {
-      format: {
-        type: 'json_schema',
+    response_format: {
+      type: 'json_schema',
+      json_schema: {
         name: 'recipe_shelf_recipe',
-        strict: true,
         schema: recipeSchema
       }
     }
@@ -300,18 +306,14 @@ const response = await fetch('https://api.openai.com/v1/responses', {
 });
 
 if (!response.ok) {
-  throw new Error(`OpenAI request failed: ${response.status} ${await response.text()}`);
+  throw new Error(`Groq request failed: ${response.status} ${await response.text()}`);
 }
 
 const result = await response.json();
-const outputText =
-  result.output_text ??
-  result.output
-    ?.flatMap((item) => item.content ?? [])
-    .find((content) => content.type === 'output_text')?.text;
+const outputText = result.choices?.[0]?.message?.content;
 
 if (!outputText) {
-  throw new Error('OpenAI response did not contain output text.');
+  throw new Error('Groq response did not contain output text.');
 }
 
 const recipe = JSON.parse(outputText);

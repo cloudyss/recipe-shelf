@@ -156,8 +156,8 @@ One-time setup in GitHub:
 
 1. Open your repository on GitHub.
 2. Go to `Settings` -> `Secrets and variables` -> `Actions`.
-3. Add a repository secret named `OPENAI_API_KEY`.
-4. Optional: add a repository variable named `OPENAI_MODEL`. If omitted, the workflow uses `gpt-5.6-luna`.
+3. Add a repository secret named `GROQ_API_KEY`.
+4. Optional: add a repository variable named `GROQ_MODEL`. If omitted, the workflow uses `llama-3.3-70b-versatile`.
 
 Run it from your phone:
 
