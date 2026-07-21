@@ -25,7 +25,7 @@ ingredients:
         unit: "g"
         notes: "For dissolving, can be normal white sugar."
       - name: "Fine salt"
-        quantity: 1/2
+        quantity: 0.5
         unit: "tsp"
       - name: "Unsalted butter"
         quantity: 460
@@ -54,7 +54,9 @@ instructions:
     timerMinutes: 10
 notes: "Servings are two batches for icing and piping, for icing only use half as much. To store buttercream, transfer to a large zipper-lock bag, press out the air, and seal. Buttercream can be refrigerated for up to 2 weeks and frozen for up to several months. Melt a few tablespoons and re-whip before using."
 source:
+  title: "Vanilla Swiss Meringue Buttercream Recipe"
   author: "Gemini generated with chat"
+  website: ""
   accessed: "2026-07-21"
 created: 2026-07-21
 updated: 2026-07-21

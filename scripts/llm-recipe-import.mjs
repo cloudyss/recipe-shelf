@@ -169,6 +169,7 @@ function yamlArray(values, indent = '') {
 }
 
 function recipeToMarkdown(recipe) {
+  recipe = normalizeRecipe(recipe);
   const ingredientYaml = recipe.ingredients
     .map((group) => {
       const ingredients = group.ingredients
@@ -217,13 +218,91 @@ source:
   title: ${yamlString(recipe.source.title || recipe.title)}
   author: ${yamlString(recipe.source.author)}
   website: ${yamlString(recipe.source.website)}
-  url: ${yamlString(recipe.source.url || sourceUrl)}
-  accessed: ${yamlString(recipe.source.accessed || today)}
+${recipe.source.url || sourceUrl ? `  url: ${yamlString(recipe.source.url || sourceUrl)}\n` : ''}  accessed: ${yamlString(recipe.source.accessed || today)}
 image: ${yamlString(recipe.image)}
 created: ${today}
 updated: ${today}
 ---
 `;
+}
+
+function parseQuantity(value) {
+  if (value === null || value === undefined || value === '') return null;
+  if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+  if (typeof value !== 'string') return null;
+
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  if (/^\d+(\.\d+)?$/.test(trimmed)) return Number(trimmed);
+  if (/^\d+\/\d+$/.test(trimmed)) {
+    const [top, bottom] = trimmed.split('/').map(Number);
+    return bottom ? top / bottom : null;
+  }
+  if (/^\d+\s+\d+\/\d+$/.test(trimmed)) {
+    const [whole, fraction] = trimmed.split(/\s+/, 2);
+    const [top, bottom] = fraction.split('/').map(Number);
+    return bottom ? Number(whole) + top / bottom : Number(whole);
+  }
+  return null;
+}
+
+function normalizeRecipe(recipe) {
+  const normalized = {
+    title: cleanText(recipe.title) || 'Imported recipe',
+    description: cleanText(recipe.description) || 'Imported recipe draft.',
+    originalServings: parseQuantity(recipe.originalServings) || 4,
+    categories: Array.isArray(recipe.categories) ? recipe.categories.map(cleanText).filter(Boolean) : ['Imported'],
+    tags: Array.isArray(recipe.tags) ? recipe.tags.map(cleanText).filter(Boolean) : ['review-needed'],
+    cuisine: cleanText(recipe.cuisine),
+    dietary: Array.isArray(recipe.dietary) ? recipe.dietary.map(cleanText).filter(Boolean) : [],
+    goesWith: Array.isArray(recipe.goesWith) ? recipe.goesWith.map(slugify).filter(Boolean) : [],
+    ingredients: Array.isArray(recipe.ingredients) ? recipe.ingredients : [],
+    instructions: Array.isArray(recipe.instructions) ? recipe.instructions : [],
+    notes: cleanText(recipe.notes),
+    source: recipe.source && typeof recipe.source === 'object' ? recipe.source : {},
+    image: cleanText(recipe.image)
+  };
+
+  normalized.ingredients = normalized.ingredients.map((group) => ({
+    title: cleanText(group.title) || 'Ingredients',
+    ingredients: Array.isArray(group.ingredients)
+      ? group.ingredients.map((ingredient) => ({
+          name: cleanText(ingredient.name) || 'Review ingredient',
+          quantity: parseQuantity(ingredient.quantity),
+          unit: ingredient.unit === null || ingredient.unit === undefined ? null : cleanText(ingredient.unit),
+          notes: cleanText(ingredient.notes),
+          optional: Boolean(ingredient.optional)
+        }))
+      : []
+  }));
+
+  if (!normalized.ingredients.length || normalized.ingredients.every((group) => !group.ingredients.length)) {
+    normalized.ingredients = [
+      {
+        title: 'Ingredients',
+        ingredients: [{ name: 'Review and add ingredients', quantity: null, unit: null, notes: '', optional: false }]
+      }
+    ];
+  }
+
+  normalized.instructions = normalized.instructions.map((step) => ({
+    text: cleanText(step.text ?? step) || 'Review and add method step.',
+    timerMinutes: parseQuantity(step.timerMinutes)
+  }));
+
+  if (!normalized.instructions.length) {
+    normalized.instructions = [{ text: 'Review and add method steps.', timerMinutes: null }];
+  }
+
+  normalized.source = {
+    title: cleanText(normalized.source.title) || normalized.title,
+    author: cleanText(normalized.source.author),
+    website: cleanText(normalized.source.website),
+    url: cleanText(normalized.source.url || sourceUrl),
+    accessed: cleanText(normalized.source.accessed) || today
+  };
+
+  return normalized;
 }
 
 function blockedUrlDraftMarkdown(fetchError) {
