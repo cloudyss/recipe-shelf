@@ -1,14 +1,12 @@
 ---
-title: "Swiss Meringue Buttercream Recipe"
-description: "How to make light and silky Swiss meringue buttercream."
-originalServings: 48
+title: "Vanilla Swiss Meringue Buttercream Recipe"
+description: "Vanilla Swiss Meringue Buttercream."
+originalServings: 2
 categories:
-  - "Desserts"
-  - "Cakes"
+  - "Cake"
 tags:
   - "Swiss Meringue Buttercream"
-  - "Buttercream"
-  - "Frosting"
+  - "Icing"
 cuisine: "American"
 dietary:
   - "Vegetarian"
@@ -19,57 +17,45 @@ ingredients:
   - title: "For the meringue"
     ingredients:
       - name: "Egg whites"
-        quantity: 170
+        quantity: 6
+        unit: "eggs"
+        notes: "180g"
+      - name: "Caster sugar"
+        quantity: 200
         unit: "g"
-        notes: "From 5 to 6 large eggs"
-      - name: "Sugar"
-        quantity: 310
-        unit: "g"
-        notes: "Plain or lightly toasted"
-      - name: "Kosher salt"
-        quantity: 3
-        unit: "g"
-        notes: "Use half as much if iodized"
-      - name: "Cream of tartar"
-        quantity: null
-        unit: null
-        notes: "1/4 teaspoon"
-      - name: "Vanilla seeds"
-        quantity: null
-        unit: null
-        notes: "Scraped seeds from 1 split vanilla bean"
-        optional: true
-  - title: "For the buttercream"
-    ingredients:
+        notes: "For dissolving, can be normal white sugar."
+      - name: "Fine salt"
+        quantity: 1/2
+        unit: "tsp"
       - name: "Unsalted butter"
-        quantity: 565
+        quantity: 460
         unit: "g"
-        notes: "5 sticks, softened to about 65°F (18°C)"
+        notes: "at room temperature"
+        optional: false
       - name: "Vanilla extract"
-        quantity: 5
-        unit: "ml"
-        notes: "1 teaspoon"
-      - name: "Almond extract"
-        quantity: null
-        unit: null
-        notes: "1/4 teaspoon"
-        optional: true
+        quantity: 8
+        unit: "tsp"
+        notes: "or to taste"
+        optional: false
+      - name: "Lemon juice"
+        quantity: 8
+        unit: "tsp"
+        notes: "or to taste"
+        optional: false
 instructions:
-  - text: "Fill a wide pot with at least 1 1/2 inches of water, with a thick ring of crumpled tinfoil placed on the bottom to act as a 'booster seat' that will prevent the bowl from touching the bottom of the pot. Place over high heat until steaming-hot, then adjust temperature to maintain a gentle simmer."
-  - text: "Combine 170g egg whites, 310g sugar, 3g kosher salt, and 1/4 teaspoon cream of tartar in the bowl of a stand mixer. Set over steaming water, stirring and scraping constantly with a flexible spatula, until egg whites hold steady at 185°F (85°C). This should take only 10 to 12 minutes."
+  - text: "Dissolve the sugar. Requires a double boiler setup. Bring an inch of water to a gentle simmer in your saucepan. In your clean, grease-free mixer bowl, whisk together the 6 egg whites and 200g of sugar. Place the bowl over the simmering water and whisk constantly for 3–4 minutes until the sugar is fully dissolved. Test it: rub a drop between your fingers — it must feel completely smooth. Add 1/2 tsp of salt and give a final mix."
+    timerMinutes: 4
+  - text: "Whip to stiff peaks. 10-12 minutes (slightly longer for double volume). Move the bowl straight to your mixer fitted with the whisk attachment. Whip on medium-high speed until the meringue is thick, glossy, and holds stiff peaks. Crucial: because the batch is larger, it holds heat longer. Keep whipping until the outside of the mixer bowl feels completely cool to the touch before adding any butter."
+    timerMinutes: 12
+  - text: "Emulsify the butter. The scrambled egg phase will happen! Keep the mixer on medium speed. Gradually add your 460g of softened butter a few cubes at a time. Once it's all in, turn the mixer up to medium-high. Because of the extra volume, it may look separated and curdled for a good 3 to 5 minutes. Keep whipping; the friction will force it to snap into a smooth cream."
+    timerMinutes: 5
+  - text: "Add the fixers & color. Stream in slowly. Turn the mixer down to low. Slowly pour in the 8 tsp of vanilla and 8 tsp of lemon juice. Mix until completely uniform and smooth. Add any gel food coloring right now if you are tinting it."
+  - text: "Ice the cake frozen for the crumb layer. Then once warmed to room temperature put on final icing layer. For piping, flash chill to maintain shapes for about 5 to 10 minutes. Alternatively pack your finished buttercream into your piping bags or airtight storage container for later use."
     timerMinutes: 10
-  - text: "Transfer the mixture to a stand mixer fitted with a whisk attachment and whip at high speed about 10 minutes, until meringue is glossy, stiff, and cool to the touch, around 90°F (32°C)."
-    timerMinutes: 10
-  - text: "With mixer still running, add 565g softened butter, 1 or 2 tablespoons at a time. Initially, the volume of the meringue will decrease dramatically; it may even seem soupy along the way, but as the cool butter is added, the mixture will begin to thicken and cool."
-  - text: "Mix in 5ml vanilla extract and 1/4 teaspoon almond extract (if using) on low speed until well combined."
-notes: "To store buttercream, transfer to a large zipper-lock bag, press out the air, and seal. Buttercream can be refrigerated for up to 2 weeks and frozen for up to several months. Rewarm to 72°F and re-whip before using."
+notes: "Servings are two batches for icing and piping, for icing only use half as much. To store buttercream, transfer to a large zipper-lock bag, press out the air, and seal. Buttercream can be refrigerated for up to 2 weeks and frozen for up to several months. Melt a few tablespoons and re-whip before using."
 source:
-  title: "Serious Eats"
-  author: "Stella Parks"
-  website: "Serious Eats"
-  url: "https://www.seriouseats.com/recipes/2017/05/swiss-meringue-buttercream-recipe.html"
+  author: "Gemini generated with chat"
   accessed: "2026-07-21"
-image: "https://www.seriouseats.com/images/20170508-swiss-meringue-buttercream-vicky-wasik-1.jpg"
 created: 2026-07-21
 updated: 2026-07-21
 ---
