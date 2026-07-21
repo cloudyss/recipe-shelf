@@ -274,7 +274,10 @@ if (fetchError) {
 }
 
 const systemPrompt =
-  'Convert recipes into the Recipe Shelf JSON schema. Preserve cups, tbsp and tsp as measuring units. Convert ounces and pounds to grams. Keep quantities numeric where possible, or null for text-only amounts. Rewrite method steps so ingredient amounts are included directly in the instruction text. Add timerMinutes for timed cooking/mixing/resting steps. Do not invent ingredients. If uncertain, put a short warning in notes. Return only valid JSON matching the schema.';
+  `Convert recipes into the Recipe Shelf JSON schema. Preserve cups, tbsp and tsp as measuring units. Convert ounces and pounds to grams. Keep quantities numeric where possible, or null for text-only amounts. Rewrite method steps so ingredient amounts are included directly in the instruction text. Add timerMinutes for timed cooking/mixing/resting steps. Do not invent ingredients. If uncertain, put a short warning in notes.
+
+Return only a JSON object, with no markdown fences and no commentary. Match this schema shape:
+${JSON.stringify(recipeSchema)}`;
 
 const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
   method: 'POST',
@@ -294,14 +297,7 @@ const response = await fetch('https://api.groq.com/openai/v1/chat/completions', 
         role: 'user',
         content: `Source URL: ${sourceUrl || 'pasted text'}\nAccessed: ${today}\n\nRecipe content:\n${recipeInput}`
       }
-    ],
-    response_format: {
-      type: 'json_schema',
-      json_schema: {
-        name: 'recipe_shelf_recipe',
-        schema: recipeSchema
-      }
-    }
+    ]
   })
 });
 
@@ -316,7 +312,17 @@ if (!outputText) {
   throw new Error('Groq response did not contain output text.');
 }
 
-const recipe = JSON.parse(outputText);
+function parseJsonObject(text) {
+  try {
+    return JSON.parse(text);
+  } catch {
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error(`Groq response was not JSON: ${text.slice(0, 500)}`);
+    return JSON.parse(match[0]);
+  }
+}
+
+const recipe = parseJsonObject(outputText);
 const slug = outputSlug || slugify(recipe.title);
 const fileName = slug.startsWith('_draft-') ? `${slug}.md` : `_draft-${slug}.md`;
 const outputPath = join(process.cwd(), 'src/content/recipes', fileName);
