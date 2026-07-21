@@ -47,8 +47,8 @@ function cleanText(value) {
 
 async function loadRecipeInput() {
   const pastedText = process.env.RECIPE_TEXT?.trim();
-  if (pastedText) return pastedText;
-  if (textFile) return readFile(textFile, 'utf8');
+  if (pastedText) return { text: pastedText, fetchError: null };
+  if (textFile) return { text: await readFile(textFile, 'utf8'), fetchError: null };
   if (!sourceUrl) {
     throw new Error('Provide RECIPE_URL, RECIPE_TEXT, --url=..., or --text-file=...');
   }
@@ -60,10 +60,13 @@ async function loadRecipeInput() {
   });
 
   if (!response.ok) {
-    throw new Error(`Could not fetch ${sourceUrl}: ${response.status} ${response.statusText}`);
+    return {
+      text: '',
+      fetchError: `Could not fetch ${sourceUrl}: ${response.status} ${response.statusText}`
+    };
   }
 
-  return cleanText(await response.text()).slice(0, 50000);
+  return { text: cleanText(await response.text()).slice(0, 50000), fetchError: null };
 }
 
 const recipeSchema = {
@@ -218,7 +221,53 @@ updated: ${today}
 `;
 }
 
-const recipeInput = await loadRecipeInput();
+function blockedUrlDraftMarkdown(fetchError) {
+  const url = new URL(sourceUrl);
+  return `---
+title: ${yamlString(outputSlug ? outputSlug.replace(/-/g, ' ') : 'Blocked recipe import')}
+description: "Recipe draft created because the source website blocked GitHub Actions from fetching the page."
+originalServings: 4
+categories:
+  - "Draft"
+tags:
+  - "needs-paste"
+cuisine: ""
+dietary: []
+goesWith: []
+ingredients:
+  - title: "Ingredients"
+    ingredients:
+      - name: "Paste recipe text into the Import recipe draft workflow"
+        quantity: null
+        unit: null
+instructions:
+  - text: "Open the original recipe URL, copy the recipe ingredients and method, then rerun Import recipe draft using recipe_text instead of recipe_url."
+notes: ${yamlString(`${fetchError}. Some sites block automated fetches from GitHub Actions. Use recipe_text for this source.`)}
+source:
+  title: "Original recipe"
+  author: ""
+  website: ${yamlString(url.hostname)}
+  url: ${yamlString(sourceUrl)}
+  accessed: ${yamlString(today)}
+image: ""
+created: ${today}
+updated: ${today}
+---
+`;
+}
+
+const { text: recipeInput, fetchError } = await loadRecipeInput();
+if (fetchError) {
+  const slug = outputSlug || slugify(new URL(sourceUrl).pathname.split('/').filter(Boolean).at(-1) || 'blocked-recipe');
+  const fileName = slug.startsWith('_draft-') ? `${slug}.md` : `_draft-${slug}.md`;
+  const outputPath = join(process.cwd(), 'src/content/recipes', fileName);
+  await mkdir(join(process.cwd(), 'src/content/recipes'), { recursive: true });
+  await writeFile(outputPath, blockedUrlDraftMarkdown(fetchError), 'utf8');
+  console.log(`Created blocked-source draft: ${outputPath}`);
+  console.log(fetchError);
+  process.exit(0);
+}
+
 const response = await fetch('https://api.openai.com/v1/responses', {
   method: 'POST',
   headers: {

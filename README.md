@@ -177,6 +177,8 @@ src/content/recipes/_draft-lemon-cake.md
 
 Draft files are intentionally hidden from the app. Review the Markdown in GitHub, edit anything you want, then rename it without `_draft-` when you are ready to publish it.
 
+Some websites block GitHub Actions from fetching their pages. If a URL import creates a draft saying the source was blocked, open the recipe page yourself, copy the visible ingredients and method, then rerun `Import recipe draft` with `recipe_text` instead of `recipe_url`.
+
 The AI import prompt asks the model to:
 
 - preserve cups, tablespoons and teaspoons;
