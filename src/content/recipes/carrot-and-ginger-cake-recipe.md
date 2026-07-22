@@ -89,11 +89,11 @@ ingredients:
         unit: null
         notes: "pinch"
   - title: "To garnish"
+    ingredients:
       - name: "chopped walnuts"
         quantity: null
         unit: null
 instructions:
-- title: "Carrot cake"
   - text: "Preheat the oven to 180C. Grease and line a 25cm round cake tin."
   - text: "Shred 375g of carrots into a bowl. Set aside."
   - text: "Use a microplane to very finely grate the 2 tablespoons of ginger. Set aside."
@@ -106,17 +106,14 @@ instructions:
   - text: "Spoon the mixture into the prepared tin, smooth the top, and bake in the preheated oven for around 50 minutes or until a skewer comes out clean when tested."
     timerMinutes: 50
   - text: "Allow the cake to cool briefly in the tin before transferring to a wire rack to cool completely."
-  - text: "For the frosting, use the Sifter + Scale Attachment to add 200g of pure icing sugar into the bowl of the Mixer fitted with the Whisk. Add 100g of unsalted butter and whisk together on speed 4 initially, then once combined whisking on speed 8 until pale and fluffy (around 3 minutes)."
-    timerMinutes: 3
   - text: "If icing a crumb coat, freeze overnight."
-- title: "Lime Creamcheese Icing"
   - text: "Sift 150g of pure icing sugar into the bowl."
   - text: "Add 100g of softened unsalted butter and whisk together at a medium speed, then fast until pale and fluffy. If using a mixer try speed 4 initially with the whisk attachment, then once combined whisk on speed 8 until pale and fluffy (around 3 minutes)."
-timerMinutes: 3
-- text: "Add 250g of cream cheese, beating until well incorporated and voluminous."
-- text: "Add the lime juice and beat slowly, then fold through the lime zest."
-- text: "If slicing the cake in half, brush the cut top, bottom and each cut half with a sugar and boiling water mix (5 parts water with 1 part sugar)"
-- text: "Spread the crumb coat while frozen. Then when defrosted ice the rest of the icing over the cake and sprinkle generously walnuts. Alternatively ice direclty if you want to eat right away."
+    timerMinutes: 3
+  - text: "Add 250g of cream cheese, beating until well incorporated and voluminous."
+  - text: "Add the lime juice and beat slowly, then fold through the lime zest."
+  - text: "If slicing the cake in half, brush the cut top, bottom and each cut half with a sugar and boiling water mix (5 parts water with 1 part sugar)."
+  - text: "Spread the crumb coat while frozen. Then when defrosted ice the rest of the icing over the cake and sprinkle generously walnuts. Alternatively ice direclty if you want to eat right away."
 notes: "Unfrosted cake can be left at room temperature in an airtight container however once frosted, it should be stored in the fridge and brought back to room temperature before serving. The original recipe isn't available, so wayback machine link is provided."
 source:
   title: "Spiced Carrot Cake Recipe"
