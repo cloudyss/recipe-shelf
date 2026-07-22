@@ -89,11 +89,7 @@ ingredients:
         unit: null
         notes: "pinch"
   - title: "To garnish"
-    ingredients:
-      - name: "coconut chips and flakes"
-        quantity: null
-        unit: null
-      - name: "slivered pistachios"
+      - name: "chopped walnuts"
         quantity: null
         unit: null
 instructions:
