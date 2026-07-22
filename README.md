@@ -1,6 +1,12 @@
 # Recipe Shelf
 
-Recipe Shelf is a mobile-first personal recipe web app. It stores each recipe as a human-readable Markdown file in this GitHub repository, builds a static Astro site, and deploys it to GitHub Pages.
+[Recipe shelf](https://cloudyss.github.io/recipe-shelf/)
+
+I modify bits of recipes to suit my taste, and rather than bookmark recipies and keep the changes in my head, I'm moving them to a mobile-first personal recipe web app. Where I've adapted recipies you'll see the sources. Some sources may have been deleted (try the wayback machine).
+
+Furthermore, when reading recipe steps, I prefer the amounts to be listed inside the recipe. I've also included a timer and other small features I personally find handy when cooking.
+
+Each recipe is stored as a human-readable Markdown file in this GitHub repository. This app builds a static Astro site, and deploys it to GitHub Pages. It's not a seamless process, but given I don't modify recipes often, and I'm sick of remembering everything, this works well enough!
 
 ## Architecture
 
@@ -12,7 +18,7 @@ Recipe Shelf is a mobile-first personal recipe web app. It stores each recipe as
 
 ## Why Recipes Live In GitHub
 
-Recipe files are plain Markdown with structured frontmatter, so they are readable, searchable, reviewable and backed up. Every recipe edit is a Git commit, which gives you version history and an easy way to undo mistakes.
+Recipe files are plain Markdown with structured frontmatter, so they are readable, searchable, reviewable and backed up. Every recipe edit is a Git commit, which gives me a version history and an easy way to undo mistakes.
 
 ## Install
 
@@ -67,6 +73,15 @@ In your GitHub repository, enable:
 The Astro config automatically uses the repository name as the GitHub Pages base path during GitHub Actions builds.
 
 ## Add A Recipe
+
+### My usual method (insert link or existing text):
+
+1. Go to repo > Actions > on the left select "Import recipie draft".
+2. Enter a link or copy/paste the text. This will trigger a GitHub Action, call a small LLM via API which will clean up the recipe to my desired format and save the recipe as an `.md` file.
+3. The recipe will be stored as `_draft_recipe_name`. Modify this file locally or remote and adjust quantities etc. This is best reviewed on laptop, but can be done on mobile.
+4. When done remove "_draft_" from the filename, and it will appear live on the webapp.
+
+### Recipes from scratch
 
 Copy the template:
 
