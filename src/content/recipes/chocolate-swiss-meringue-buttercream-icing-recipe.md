@@ -13,35 +13,36 @@ dietary:
 goesWith:
   - "cakes"
   - "cupcakes"
-- title: "Chocolate Swiss Meringue Buttercream"
 ingredients:
-  - name: "Egg Whites"
-  quantity: 6
-  unit: "large"
-  notes: "About 180g"
-  - name: "White Sugar"
-  quantity: 200
-  unit: "g"
-  notes: "Caster or white sugar"
-  - name: "Fine Salt"
-  quantity: 0.5
-  unit: "tsp"
-  notes: "Dissolved with sugar & egg whites so it won't be crunchy"
-  - name: "Unsalted Butter"
-  quantity: 400
-  unit: "g"
-  notes: "Cubed, softened to room temp (18-20°C)"
-  - name: "Dark / Semi-Sweet Chocolate"
-  quantity: 180
-  unit: "g"
-  notes: "Melted and cooled to room temp (~50-70% cocoa). I use ALDI Moser Roth 70%."
-  - name: "Dutch-Process Cocoa Powder"
-  quantity: 0.33
-  unit: "cups"
-  notes: "1/3 cup, sifted to remove lumps"
-  - name: "Vanilla Extract"
-  quantity: 2
-  unit: "tsp"
+  - title: "Chocolate Swiss Meringue Buttercream"
+    ingredients:
+      - name: "Egg Whites"
+        quantity: 6
+        unit: "large"
+        notes: "About 180g"
+      - name: "White Sugar"
+        quantity: 200
+        unit: "g"
+        notes: "Caster or white sugar"
+      - name: "Fine Salt"
+        quantity: 0.5
+        unit: "tsp"
+        notes: "Dissolved with sugar & egg whites so it won't be crunchy"
+      - name: "Unsalted Butter"
+        quantity: 400
+        unit: "g"
+        notes: "Cubed, softened to room temp (18-20°C)"
+      - name: "Dark / Semi-Sweet Chocolate"
+        quantity: 180
+        unit: "g"
+        notes: "Melted and cooled to room temp (~50-70% cocoa). I use ALDI Moser Roth 70%."
+      - name: "Dutch-Process Cocoa Powder"
+        quantity: 0.33
+        unit: "cups"
+        notes: "1/3 cup, sifted to remove lumps"
+      - name: "Vanilla Extract"
+        quantity: 2
+        unit: "tsp"
 instructions:
   - text: "Dissolve the sugar. Requires a double boiler setup. Bring an inch of water to a gentle simmer in your saucepan. In your clean, grease-free mixer bowl, whisk together the 6 egg whites and 200g of sugar. Place the bowl over the simmering water and whisk constantly for 3–4 minutes until the sugar is fully dissolved. Test it: rub a drop between your fingers — it must feel completely smooth. Add 1/2 tsp of salt and give a final mix."
   - text: "Whip to stiff peaks. 10-12 minutes (slightly longer for double volume). Move the bowl straight to your mixer fitted with the whisk attachment. Whip on medium-high speed until the meringue is thick, glossy, and holds stiff peaks. Crucial: if you double the batch, it holds heat longer. Keep whipping until the outside of the mixer bowl feels completely cool to the touch before adding any butter."
