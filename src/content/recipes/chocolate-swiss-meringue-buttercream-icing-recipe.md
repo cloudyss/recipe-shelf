@@ -14,45 +14,31 @@ goesWith:
   - "cakes"
   - "cupcakes"
 ingredients:
-  - title: "Egg Whites"
-    ingredients:
-      - name: "Egg Whites"
+  - name: "Egg Whites"
         quantity: 6
         unit: "large"
         notes: "About 180g"
-  - title: "White Sugar"
-    ingredients:
-      - name: "White Sugar"
+  - name: "White Sugar"
         quantity: 200
         unit: "g"
         notes: "Caster or white sugar"
-  - title: "Fine Salt"
-    ingredients:
-      - name: "Fine Salt"
+  - name: "Fine Salt"
         quantity: 0.5
         unit: "tsp"
         notes: "Dissolved with sugar & egg whites so it won't be crunchy"
-  - title: "Unsalted Butter"
-    ingredients:
-      - name: "Unsalted Butter"
+  - name: "Unsalted Butter"
         quantity: 400
         unit: "g"
         notes: "Cubed, softened to room temp (18-20°C)"
-  - title: "Dark / Semi-Sweet Chocolate"
-    ingredients:
-      - name: "Dark / Semi-Sweet Chocolate"
+  - name: "Dark / Semi-Sweet Chocolate"
         quantity: 180
         unit: "g"
         notes: "Melted and cooled to room temp (~50-70% cocoa). I use ALDI Moser Roth 70%."
-  - title: "Dutch-Process Cocoa Powder"
-    ingredients:
-      - name: "Dutch-Process Cocoa Powder"
+  - name: "Dutch-Process Cocoa Powder"
         quantity: 0.33
         unit: "cups"
         notes: "1/3 cup, sifted to remove lumps"
-  - title: "Vanilla Extract"
-    ingredients:
-      - name: "Vanilla Extract"
+  - name: "Vanilla Extract"
         quantity: 2
         unit: "tsp"
 instructions:
@@ -63,6 +49,9 @@ instructions:
   - text: "Add the 180g melted and cooled dark chocolate and add to the mixture"
   - text: "Add 1/3 cup of sifted Dutch-process cocoa powder and mix well"
   - text: "Add 2 tsp of vanilla extract and mix until combined"
+  - text: "Optional: make sugar syrup by mixing 5 parts boiling water to 1 part sugar. Brush exposed bottom, top and between layers with sugar water."
+  - text: "Crumb coat the cake while frozen."
+  - text: "Ice the final layers of the cake once it has thawed. If frozen the piping won't adhere."
 notes: "The butter is adjusted down to 400g compared to the vanilla recipe because the solid cocoa fats in the chocolate add structure. Also this is enough for crumb coat and some piping."
 source:
   title: "Custom Recipe"
