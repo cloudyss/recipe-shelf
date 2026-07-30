@@ -13,6 +13,7 @@ dietary:
 goesWith:
   - "cakes"
   - "cupcakes"
+- title: "Chocolate Swiss Meringue Buttercream"
 ingredients:
   - name: "Egg Whites"
         quantity: 6
