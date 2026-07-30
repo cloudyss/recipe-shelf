@@ -32,7 +32,7 @@ ingredients:
         unit: null
         notes: "zested, juiced"
       - name: "caster sugar"
-        quantity: 120
+        quantity: 60
         unit: "g"
       - name: "thickened cream"
         quantity: 600
@@ -59,7 +59,7 @@ instructions:
   - text: "Squeeze gelatine leaves of excess water and add to pan. Remove from heat."
   - text: "In a bowl, beat together 600ml thickened cream and 500g thick Greek-style yoghurt, add orange juice mixture, rind and 2 tbsp orange blossom water. Pour over base and chill overnight."
   - text: "To serve, place cheesecake on a platter, drizzle with 4 tbsp honey and sprinkle with 3 tbsp roughly chopped unsalted, shelled pistachio nuts."
-notes: "Begin this recipe the day before. * Gelatine leaves are from gourmet food stores. * Orange blossom water is from gourmet and Middle Eastern shops."
+notes: "Begin this recipe the day before. I've halved the sugar to 60g (from 120g), but could go to 30 - 40g, so about 1/3."
 source:
   title: "Taste"
   author: "Valli Little"
