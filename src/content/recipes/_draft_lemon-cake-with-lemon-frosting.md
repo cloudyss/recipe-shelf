@@ -79,16 +79,16 @@ ingredients:
         unit: "tbsp"
 instructions:
   - text: "Heat the oven to 180C, or 160C fan. Grease and line three 20cm cake tins."
-  - text: "Whisk 2 cups plain flour, 2.5 tsp baking powder and 0.25 tsp salt in a bowl."
-  - text: "Beat 4 large eggs for 30 seconds, then gradually add 1.5 cups caster sugar and keep beating until the mixture is pale, thick and tripled."
+  - text: "Whisk 2 cups plain flour, 2 1/2 tsp baking powder and 1/4 tsp salt in a bowl."
+  - text: "Beat 4 large eggs for 30 seconds, then gradually add 1 1/2 cups caster sugar and keep beating until the mixture is pale, thick and tripled."
     timerMinutes: 7
-  - text: "Warm 115g unsalted butter with 1 cup full-fat milk until the butter melts, then stir in 3 tsp vanilla extract, 3 tsp neutral oil, 3 tbsp lemon zest, 0.33 cup lemon juice and 0.25 tsp lemon extract if using."
+  - text: "Warm 115g unsalted butter with 1 cup full-fat milk until the butter melts, then stir in 3 tsp vanilla extract, 3 tsp neutral oil, 3 tbsp lemon zest, 1/3 cup lemon juice and 1/4 tsp lemon extract if using."
   - text: "Fold the 2 cups flour mixture into the egg mixture in three additions, mixing gently and stopping once no dry flour is visible."
   - text: "Stir a scoop of batter into the warm 115g butter and 1 cup milk mixture, then pour it back into the main batter and mix gently until smooth."
   - text: "Divide the batter between the three tins, tap out large bubbles, and bake until the cakes spring back and a skewer comes out clean."
     timerMinutes: 23
   - text: "Cool the cakes in their tins for 15 minutes, then turn them out upside down on racks and cool completely."
-  - text: "For the frosting, whisk 6.5 tbsp plain flour and 1.33 cups caster sugar in a saucepan, slowly whisk in 1.33 cups full-fat milk, then cook while stirring until very thick. Cool completely."
+  - text: "For the frosting, whisk 6 1/2 tbsp plain flour and 1 1/3 cups caster sugar in a saucepan, slowly whisk in 1 1/3 cups full-fat milk, then cook while stirring until very thick. Cool completely."
   - text: "Beat 300g softened unsalted butter until very pale and smooth."
     timerMinutes: 3
   - text: "Beat the cooled roux into the butter spoon by spoon, then add 3 tsp lemon zest and 4 tbsp lemon juice and whip until fluffy enough to hold peaks."

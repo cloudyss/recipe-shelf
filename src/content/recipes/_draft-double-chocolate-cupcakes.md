@@ -61,13 +61,13 @@ ingredients:
         unit: "tbsp"
         notes: "extra, to serve"
 instructions:
-  - text: "Preheat oven to 200°C. Grease a 12 x 1/3-cup capacity muffin pan. Alternatively, line holes with paper cases. Combine 1.5 cups sifted self-raising flour and 0.75 cups caster sugar in a bowl. Stir in 0.5 cups sifted cocoa powder and 0.75 cups dark choc bits or milk choc bits. Make a well in the centre."
-  - text: "Add 0.75 cups milk, 125g melted and cooled butter, 2 beaten eggs, and 1 tsp vanilla essence to flour mixture. Using a large metal spoon, stir gently to combine."
+  - text: "Preheat oven to 200°C. Grease a 12 x 1/3-cup capacity muffin pan. Alternatively, line holes with paper cases. Combine 1 1/2 cups sifted self-raising flour and 3/4 cup caster sugar in a bowl. Stir in 1/2 cup sifted cocoa powder and 3/4 cup dark choc bits or milk choc bits. Make a well in the centre."
+  - text: "Add 3/4 cup milk, 125g melted and cooled butter, 2 beaten eggs, and 1 tsp vanilla essence to flour mixture. Using a large metal spoon, stir gently to combine."
   - text: "Spoon mixture into prepared muffin pan. Bake for 12 to 15 minutes, or until a skewer inserted into the centre comes out clean."
     timerMinutes: 12
   - text: "Stand in pan for 5 minutes before transferring to a wire rack to cool."
     timerMinutes: 5
-  - text: "Make icing: Place 0.5 cups cream and 200g roughly chopped dark chocolate into a heatproof bowl over a saucepan of simmering water. Stir with a metal spoon until smooth."
+  - text: "Make icing: Place 1/2 cup cream and 200g roughly chopped dark chocolate into a heatproof bowl over a saucepan of simmering water. Stir with a metal spoon until smooth."
   - text: "Remove from heat. Refrigerate for 30 minutes, or until a spreadable consistency."
     timerMinutes: 30
   - text: "Spread icing over cupcakes. Sprinkle with 1 tbsp extra cocoa powder."
