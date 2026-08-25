@@ -165,7 +165,22 @@ function instructionText(step) {
 
 function formatIngredientForMethod(ingredient) {
   if (ingredient.quantity === null) return ingredient.name;
-  return `${ingredient.quantity}${ingredient.unit ? ` ${ingredient.unit}` : ''} ${ingredient.name}`;
+  return `${formatQuantity(ingredient.quantity)}${ingredient.unit ? ` ${ingredient.unit}` : ''} ${ingredient.name}`;
+}
+
+function formatQuantity(value) {
+  const whole = Math.floor(value);
+  const fraction = value - whole;
+  const denominators = [2, 3, 4, 8];
+
+  for (const denominator of denominators) {
+    const numerator = Math.round(fraction * denominator);
+    if (numerator > 0 && numerator < denominator && Math.abs(fraction - numerator / denominator) < 0.03) {
+      return `${whole ? `${whole} ` : ''}${numerator}/${denominator}`;
+    }
+  }
+
+  return Number.isInteger(value) ? String(value) : String(Number(value.toFixed(2)));
 }
 
 function enrichInstructions(instructions, ingredients) {

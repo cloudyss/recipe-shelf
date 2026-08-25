@@ -363,7 +363,7 @@ if (fetchError) {
 }
 
 const systemPrompt =
-  `Convert recipes into the Recipe Shelf JSON schema. Preserve cups, tbsp and tsp as measuring units. Convert ounces and pounds to grams. Keep quantities numeric where possible, or null for text-only amounts. Rewrite method steps so ingredient amounts are included directly in the instruction text. Add timerMinutes for timed cooking/mixing/resting steps. Do not invent ingredients. If uncertain, put a short warning in notes.
+  `Convert recipes into the Recipe Shelf JSON schema. Preserve cups, tbsp and tsp as measuring units. Convert ounces and pounds to grams. Keep ingredient quantities numeric where possible, or null for text-only amounts. Use numeric decimals in quantity fields, such as 0.5, so the app can scale recipes later. In visible instruction text, prefer standard cooking fractions like 1/2, 1/3, 2/3, 1/4 and 3/4 instead of decimals or words like half. Rewrite method steps so ingredient amounts are included directly in the instruction text. Add timerMinutes for timed cooking/mixing/resting steps. Do not invent ingredients. If uncertain, put a short warning in notes.
 
 Return only a JSON object, with no markdown fences and no commentary. Match this schema shape:
 ${JSON.stringify(recipeSchema)}`;
