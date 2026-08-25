@@ -17,7 +17,7 @@ const sourceUrl = args.get('url') || process.env.RECIPE_URL || '';
 const textFile = args.get('text-file') || '';
 const outputSlug = args.get('slug') || process.env.RECIPE_SLUG || '';
 const provider = process.env.LLM_PROVIDER || 'groq';
-const model = process.env.LLM_MODEL || process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
+const model = process.env.LLM_MODEL || process.env.GROQ_MODEL || 'openai/gpt-oss-120b';
 const today = new Date().toISOString().slice(0, 10);
 
 if (provider !== 'groq') {

@@ -165,14 +165,14 @@ It is intentionally review-first. Websites format recipes differently, so import
 
 ## Import From Your Phone With AI
 
-For phone use, run the `Import recipe draft` GitHub Action. It can take a recipe URL or pasted recipe text, call OpenAI, generate a hidden draft Markdown file, validate the app, and commit the draft back to GitHub.
+For phone use, run the `Import recipe draft` GitHub Action. It can take a recipe URL or pasted recipe text, call Groq, generate a hidden draft Markdown file, validate the app, and commit the draft back to GitHub.
 
 One-time setup in GitHub:
 
 1. Open your repository on GitHub.
 2. Go to `Settings` -> `Secrets and variables` -> `Actions`.
 3. Add a repository secret named `GROQ_API_KEY`.
-4. Optional: add a repository variable named `GROQ_MODEL`. If omitted, the workflow uses `llama-3.3-70b-versatile`.
+4. Optional: add a repository variable named `GROQ_MODEL`. If omitted, the workflow uses `openai/gpt-oss-120b`.
 
 Run it from your phone:
 
